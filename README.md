@@ -75,7 +75,7 @@ This project demonstrates a **real Retrieval-Augmented Generation (RAG) pipeline
 2. **Chunk** → Text is split using `RecursiveCharacterTextSplitter`
 3. **Embed** → OpenAI embeddings are generated and stored in **FAISS**
 4. **Retrieve** → FAISS vector store is queried for relevant chunks
-5. **Chain** → `ConversationalRetrievalChain` sends results + history to LLM
+5. **Chain** → `create_retrieval_chain` sends results 
 6. **Generate** → LLM returns coherent, structured answers
 
 **Key Concepts:**
