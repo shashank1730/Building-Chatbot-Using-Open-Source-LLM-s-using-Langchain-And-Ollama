@@ -75,7 +75,7 @@ This project demonstrates a **real Retrieval-Augmented Generation (RAG) pipeline
 2. **Chunk** → Text is split using `RecursiveCharacterTextSplitter`
 3. **Embed** → OpenAI embeddings are generated and stored in **FAISS**
 4. **Retrieve** → FAISS vector store is queried for relevant chunks
-5. **Chain** → `create_retrieval_chain` sends results 
+5. **Chain** → `create_retrieval_chain` sends results
 6. **Generate** → LLM returns coherent, structured answers
 
 **Key Concepts:**
@@ -109,6 +109,69 @@ This project demonstrates a **real Retrieval-Augmented Generation (RAG) pipeline
 - No UI or API layer (pure backend logic)
 
 ---
+
+## 🤖 Project 4: Multi-Tool AI Agent (No OpenAI) for Policy & FAQ Understanding
+
+**Summary:**  
+This project implements a **tool-using AI Agent** built using **LangChain and Ollama**, with **zero dependency on OpenAI APIs**. The agent mimics decision-making based on the user's query and dynamically chooses the most appropriate knowledge source (tool), such as:
+
+- 📚 **Wikipedia** → For general knowledge & background questions
+- ✈️ **American Airlines Policy Parser** → For travel-specific queries (e.g., baggage, refunds, check-in rules)
+
+**How It Works:**
+
+1. **User Prompt** → A user submits a natural language query (e.g., "Can I check in my bags 2 days before the flight?")
+2. **Tool Selection** → The LLM determines if the question is about:
+   - General facts → Use **Wikipedia Tool**
+   - Airline policy → Use **AA Policy Tool**
+3. **Data Retrieval** → Fetches relevant info via scraping or preloaded sources
+4. **Answer Generation** → LLM processes retrieved content and responds as a human-like assistant
+
+**Key Features:**
+
+- ✅ No OpenAI API required — uses **open-source LLMs** like `llama3` or `mistral` with **Ollama**
+- 🧠 Agent "thinks" which source/tool to invoke — simulates reasoning & decision-making
+- 🧰 Modular tool architecture — easily extend with new tools (e.g., Hotels.com, GitHub docs, etc.)
+- 🔒 Fully local and private — no cloud dependency
+
+---
+
+### 🧪 Example Queries
+
+- "Can I check in baggage two days in advance?" → AA Policy Tool
+- "What is jet lag?" → Wikipedia Tool
+- "How does American Airlines handle missed connections?" → AA Policy Tool
+- "Where is the headquarters of American Airlines?" → Wikipedia Tool
+
+---
+
+**Tech Stack:**
+
+- LangChain (Tool-using Agent setup)
+- Ollama (local LLM runtime)
+- FAISS (for retrieval if needed)
+- BeautifulSoup or Playwright (for scraping)
+- Python
+
+---
+
+### 🧠 How This Is Different from Project 3
+
+| Feature              | Project 3: Basic RAG   | Project 4: Multi-Tool AI Agent                           |
+| -------------------- | ---------------------- | -------------------------------------------------------- |
+| **LLM Type**         | Can use OpenAI         | ✅ Purely open-source (Ollama + local models)            |
+| **Tool Use**         | ❌ None                | ✅ Dynamic tool use based on query type                  |
+| **Knowledge Source** | Single document corpus | Multiple tools: Wikipedia, AA Policies                   |
+| **Routing Logic**    | ❌ None                | ✅ Agent decides source (tool) via LangChain agent logic |
+| **Scalability**      | Focused on one domain  | Expandable to many domains (travel, support, etc.)       |
+
+---
+
+### 🌐 Future Plans
+
+- Add more tools (e.g., GitHub Docs, News, Airline comparison)
+- Add support for conversational memory
+- UI via Streamlit or FastAPI frontend
 
 ## 🛠️ Setup Instructions
 
